@@ -11,8 +11,6 @@ from layouts.comparisons import layout as comparison_layout
 
 file_name = "fuel_comparison_sheets.xlsx"
 
-data = pd.read_excel("fuel_comparison_sheets.xlsx")
-
 # Creates a ExcelFile object
 xl = pd.ExcelFile(file_name)
 
@@ -25,18 +23,19 @@ external_stylesheets = [
     },
 ]
 
-# print(data)
 # Gets and reads sheet names
 # print(xl.sheet_names)
 
+# Creates a data frame for each worksheet
 dfs = [
     pd.read_excel(xl, sheet_name=sheet_name, skiprows=[1])
     for sheet_name in xl.sheet_names
 ]
-# print(dfs[0])
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Comparison cost of different heat sources"
+
+# TODO: Add interactive layout with visualisation of each different source, then the comparison
 
 app.layout = html.Div(
     children=[
@@ -114,19 +113,21 @@ app.layout = html.Div(
                     className="card",
                 ),
             ],
-            # className="first-graph",
+            className="wrapper",
         ),
         oil_layout,
         propane_layout,
         pellets_layout,
         wood_layout,
-        # comparison_layout,
+        comparison_layout,
+        html.Br(),
         html.Div(
             children=[
                 html.P("References:"),
-                html.P("References:"),
-                html.P("References:"),
-                html.P("References:"),
+                html.I(
+                    "HVAC School. 'How to Compare Heat Sources For Cost Effectiveness'. https://hvacrschool.com/how-to-compare-heat-sources-for-cost-effectiveness/"
+                ),
+                # html.A(children="hello", href="www.test.ca"),
             ]
         ),
     ]

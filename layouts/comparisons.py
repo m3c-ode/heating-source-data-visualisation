@@ -1,19 +1,16 @@
 import pandas as pd
 from dash import Dash, dcc, html
 
-data = pd.read_excel("fuel_comparison_sheets.xlsx", sheet_name="Elec", skiprows=[0, 2])
-
-# print(data)
-
+# TODO: add interactivity for comparison
 layout = html.Div(
     children=[
         html.Div(
             children=[
-                html.H3("Comparing the different heat sources"),
+                html.H2("Conclusion: Comparing the different heat sources"),
                 html.P(
-                    "Unit prices can vary greatly between heat source (i.e 1 therm of natural gas VS 1 cord of dry pine). So, how can we compare heat source prices in terms of a single common unit?"
-                    "Trethewey’s worksheet converts the costs of all heat sources to the standard pricing unit for electricity, cost per kilowatt-hour."
-                    "For example, let’s take a closer look at wood pellets and oil. Unsurprisingly, a gallon of oil is cheaper than a ton of wood pellets. However, in terms of cost per kilowatt-hour, the two aren’t too different from each other."
+                    "Unit prices can vary greatly between heat source (i.e 1 therm of natural gas VS 1 cord of dry pine). So, how can we compare heat source prices in terms of a single common unit? "
+                    "Trethewey’s worksheet converts the costs of all heat sources to the standard pricing unit for electricity, cost per kilowatt-hour. "
+                    "For example, let’s take a closer look at wood pellets and oil. Unsurprisingly, a gallon of oil is cheaper than a ton of wood pellets. However, in terms of cost per kilowatt-hour, the two aren’t too different from each other. "
                 ),
                 html.H4("But what do those costs mean for you?"),
                 html.P(
@@ -28,93 +25,82 @@ layout = html.Div(
                 html.P(
                     "According to Trethewey’s tables, you would save slightly more money by using pellets as a heat source instead of oil."
                 ),
-                html.Ul(
-                    children=[
-                        html.Li("Electric resistance (ER) heaters have a COP of 1"),
-                        html.Li(
-                            "Air source pumps (ASP) generally have COPs ranging from 2-4."
-                        ),
-                        html.Li(
-                            "Geothermal ground source pumps (GGSP) have COPs ranging from 4-5."
-                        ),
-                    ]
-                ),
             ]
         ),
-        html.Div(
-            children=dcc.Graph(
-                id="elec",
-                figure={
-                    "data": [
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 1"],
-                            "type": "lines",
-                            "name": "ER COP = 1",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 2"],
-                            "type": "lines",
-                            "name": "ASP COP = 2",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 2.5"],
-                            "type": "lines",
-                            "name": "ASP COP = 2.5",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 3"],
-                            "type": "lines",
-                            "name": "ASP COP = 3",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 3.5"],
-                            "type": "lines",
-                            "name": "ASP COP = 3.5",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 4"],
-                            "type": "lines",
-                            "name": "GGSP COP = 4",
-                        },
-                        {
-                            "x": data["Utility Rate"],
-                            "y": data["COP = 5"],
-                            "type": "lines",
-                            "name": "GGSP COP = 5",
-                        },
-                    ],
-                    "layout": {
-                        "title": {
-                            "text": "Cost of electricity per Kilowatt per hour",
-                            "x": 0.01,
-                            "xanchor": "left",
-                        },
-                        "xaxis": {"fixedrange": True, "title": "$/kWh"},
-                        "yaxis": {
-                            "tickprefix": "$",
-                            "title": "$/kWh",
-                            "fixedrange": True,
-                        },
-                        "colorway": [
-                            "orange",
-                            "green",
-                            "grey",
-                            "pink",
-                            "cyan",
-                            "teal",
-                            "red",
-                        ],
-                    },
-                },
-            ),
-            className="card",
-        ),
+        # html.Div(
+        #     children=dcc.Graph(
+        #         id="elec",
+        #         figure={
+        #             "data": [
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 1"],
+        #                     "type": "lines",
+        #                     "name": "ER COP = 1",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 2"],
+        #                     "type": "lines",
+        #                     "name": "ASP COP = 2",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 2.5"],
+        #                     "type": "lines",
+        #                     "name": "ASP COP = 2.5",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 3"],
+        #                     "type": "lines",
+        #                     "name": "ASP COP = 3",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 3.5"],
+        #                     "type": "lines",
+        #                     "name": "ASP COP = 3.5",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 4"],
+        #                     "type": "lines",
+        #                     "name": "GGSP COP = 4",
+        #                 },
+        #                 {
+        #                     "x": data["Utility Rate"],
+        #                     "y": data["COP = 5"],
+        #                     "type": "lines",
+        #                     "name": "GGSP COP = 5",
+        #                 },
+        #             ],
+        #             "layout": {
+        #                 "title": {
+        #                     "text": "Cost of electricity per Kilowatt per hour",
+        #                     "x": 0.01,
+        #                     "xanchor": "left",
+        #                 },
+        #                 "xaxis": {"fixedrange": True, "title": "$/kWh"},
+        #                 "yaxis": {
+        #                     "tickprefix": "$",
+        #                     "title": "$/kWh",
+        #                     "fixedrange": True,
+        #                 },
+        #                 "colorway": [
+        #                     "orange",
+        #                     "green",
+        #                     "grey",
+        #                     "pink",
+        #                     "cyan",
+        #                     "teal",
+        #                     "red",
+        #                 ],
+        #             },
+        #         },
+        #     ),
+        #     className="card",
+        # ),
     ],
-    className="pellets-graph",
+    # className="wrapper",
 )

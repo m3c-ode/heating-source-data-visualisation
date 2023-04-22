@@ -52,5 +52,5 @@ layout = html.Div(
             className="card",
         ),
     ],
-    className="pellets-graph",
+    className="wrapper",
 )

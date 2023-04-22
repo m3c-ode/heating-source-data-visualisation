@@ -54,5 +54,5 @@ layout = html.Div(
             className="card",
         ),
     ],
-    className="propane-graph",
+    className="wrapper",
 )
